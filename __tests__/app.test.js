@@ -48,6 +48,22 @@ describe('authors and books routes', () => {
     });
   });
 
+  it('/books/:id should return one book with the author', async () => {
+    const resp = await request(app).get('/books/1');
+    expect(resp.status).toBe(200);
+    expect(resp.body).toEqual({
+      id: expect.any(String),
+      title: expect.any(String),
+      release: expect.any(String),
+      authors: [
+        {
+          id: expect.any(Number),
+          name: expect.any(String),
+        },
+      ],
+    });
+  });
+
   afterAll(() => {
     pool.end();
   });
