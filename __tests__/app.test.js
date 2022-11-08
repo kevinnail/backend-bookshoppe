@@ -27,7 +27,7 @@ describe('authors and books routes', () => {
       name: expect.any(String),
       date_of_birth: expect.any(String),
       place_of_birth: expect.any(String),
-      author_books: [
+      books: [
         {
           id: expect.any(Number),
           title: expect.any(String),
@@ -35,16 +35,17 @@ describe('authors and books routes', () => {
         },
       ],
     });
+  });
 
-    // expect(resp.body.length).toEqual(7);
-    // const george = resp.body.find((char) => char.id === '1');
-    // expect(george).toHaveProperty('name', 'George J. Thompson');
-    // expect(george).toHaveProperty('date_of_birth', '12/4/1940');
-    // expect(george).toHaveProperty('place_of_birth', 'Seattle, WA');
-    // expect(george).toHaveProperty('books');
-    // expect(george.author_books[0]).toHaveProperty('id');
-    // expect(george.author_books[0]).toHaveProperty('title');
-    // expect(george.author_books[0]).toHaveProperty('released');
+  it('/books should return a list of books', async () => {
+    const resp = await request(app).get('/books');
+    expect(resp.status).toBe(200);
+    expect(resp.body.length).toBe(10);
+    expect(resp.body[0]).toEqual({
+      id: expect.any(String),
+      title: expect.any(String),
+      released: expect.any(String),
+    });
   });
 
   afterAll(() => {
