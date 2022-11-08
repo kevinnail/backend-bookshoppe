@@ -20,14 +20,31 @@ describe('authors and books routes', () => {
 
   it('/authors/:id should return author detail and a nested list of books', async () => {
     const resp = await request(app).get('/authors/1');
-    expect(resp.body.length).toEqual(7);
-    const george = resp.body.find((char) => char.id === '1');
-    expect(george).toHaveProperty('name', 'George J. Thompson');
-    expect(george).toHaveProperty('date_of_birth', '12/4/1940');
-    expect(george).toHaveProperty('place_of_birth', 'Seattle, WA');
-    expect(george).toHaveProperty('books');
-    expect(george.books[0]).toHaveProperty('title');
-    expect(george.books[0]).toHaveProperty('released');
+
+    expect(resp.status).toBe(200);
+    expect(resp.body).toEqual({
+      id: expect.any(String),
+      name: expect.any(String),
+      date_of_birth: expect.any(String),
+      place_of_birth: expect.any(String),
+      author_books: [
+        {
+          id: expect.any(Number),
+          title: expect.any(String),
+          released: expect.any(Number),
+        },
+      ],
+    });
+
+    // expect(resp.body.length).toEqual(7);
+    // const george = resp.body.find((char) => char.id === '1');
+    // expect(george).toHaveProperty('name', 'George J. Thompson');
+    // expect(george).toHaveProperty('date_of_birth', '12/4/1940');
+    // expect(george).toHaveProperty('place_of_birth', 'Seattle, WA');
+    // expect(george).toHaveProperty('books');
+    // expect(george.author_books[0]).toHaveProperty('id');
+    // expect(george.author_books[0]).toHaveProperty('title');
+    // expect(george.author_books[0]).toHaveProperty('released');
   });
 
   afterAll(() => {
