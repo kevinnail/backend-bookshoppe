@@ -52,15 +52,9 @@ describe('authors and books routes', () => {
     const resp = await request(app).get('/books/1');
     expect(resp.status).toBe(200);
     expect(resp.body).toEqual({
-      id: expect.any(String),
       title: expect.any(String),
-      release: expect.any(String),
-      authors: [
-        {
-          id: expect.any(Number),
-          name: expect.any(String),
-        },
-      ],
+      released: expect.any(String),
+      authors: expect.any(Array),
     });
   });
 
